@@ -2,7 +2,8 @@ import pytest
 
 from sqlalchemy import select
 
-from api.utils_func import get_data_from_api
+from api.utils_func import (get_data_from_api,
+                            check_element_in_db)
 from api.database import Quiz
 from .conftest import (client,
                        async_session_maker)
@@ -25,6 +26,7 @@ class TestDataInDb:
         async with async_session_maker() as session:
             stmt = select(Quiz).where(Quiz)
 
+# TODO check_element_in_db и прочие функции
 
 
 

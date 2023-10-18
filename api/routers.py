@@ -13,10 +13,9 @@ from sqlalchemy.exc import IntegrityError
 from api.db_config import get_session
 from api.models import QuizModel
 from api.utils_func import (get_data_from_api,
-                            check_element_in_db,
-                            get_last_request)
+                            check_element_in_db)
 from api.database import Quiz
-from api.db_config import engine
+
 
 router = APIRouter(
     prefix="/api",
@@ -39,7 +38,6 @@ async def get_and_save_data_in_db(count: QuizModel,
     """
     data_api = await get_data_from_api(count.question_count)
     redis = aioredis.from_url("redis://localhost")
-
     try:
         for value in data_api:
             date_time = (value["created_at"][0:10] + " " + value[
@@ -58,22 +56,29 @@ async def get_and_save_data_in_db(count: QuizModel,
                  value["answer"],
                  date_and_time))
             await session.execute(stmt)
-            # Кеширую полученный результат
-            await redis.set("data", json.dumps(data_api))
+
+        # Кеширую полученный результат
+        await redis.set("data", json.dumps(data_api))
+        # Кеширую запрашиваемое количество значений
+        await redis.set("count_numb", count.question_count)
 
         await session.commit()
 
+        # Делаем запрос к базе данных на предмет получения всех записей
         stmt_old = select(Quiz)
         old_data = await session.execute(stmt_old)
 
         # Если количество записей в базе данных равно текущему количеству
         # возвращенных результатов, то возвращаем пустой результат
+
+        # Получаю закешированное ранее значение
+        count_value = await redis.get("count_numb")
+
         if len(old_data.scalars().all()) == count.question_count:
             return []
-        else:
-            # Возвращаю закешированный ранее результат
-            value = await redis.get("data")
-            return json.loads(value)
+        elif len(old_data.scalars().all()) != json.loads(count_value):
+            result = await redis.get("data")
+            return json.loads(result)
 
     except IntegrityError:
         await session.rollback()

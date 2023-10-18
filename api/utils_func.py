@@ -26,8 +26,3 @@ async def check_element_in_db(unique_id: int) -> bool:
         return False
     else:
         return True
-
-
-async def get_last_request() -> dict:
-    stmt = select(Quiz).order_by(Quiz.question_id.desc())
-    return stmt
