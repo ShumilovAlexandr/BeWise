@@ -20,13 +20,13 @@ from .conftest import (client,
 #         assert response.status_code == 200
 
 
-class TestDataInDb:
-    @pytest.mark.asyncio
-    async def test_check_elem_in_db(self):
-        async with async_session_maker() as session:
-            stmt = select(Quiz).where(Quiz)
+# class TestDataInDb:
+#     @pytest.mark.asyncio
+#     async def test_check_elem_in_db(self):
+#         async with async_session_maker() as session:
+#             stmt = select(Quiz).where(Quiz)
 
-# TODO check_element_in_db и прочие функции
+
 
 
 

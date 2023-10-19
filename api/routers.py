@@ -37,7 +37,7 @@ async def get_and_save_data_in_db(count: QuizModel,
     :param session: объект сессии
     """
     data_api = await get_data_from_api(count.question_count)
-    redis = aioredis.from_url("redis://localhost")
+    redis = aioredis.from_url("redis://redis:6379")
     try:
         for value in data_api:
             date_time = (value["created_at"][0:10] + " " + value[

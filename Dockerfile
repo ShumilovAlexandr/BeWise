@@ -16,7 +16,4 @@ RUN pip install -r requirements.txt
 # Копируем все файлы в рабочую директорию
 COPY . .
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
-
-
-# TODO докер работает, настраиваю компос и все чики бомбони
+# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
