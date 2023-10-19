@@ -33,7 +33,7 @@ POSTGRES_PASSWORD=*укажите ваши данные
 }
 '''
 Пример возвращаемого ответа:
-'''
+"""
 [
   {
     "id": 137386,
@@ -54,7 +54,7 @@ POSTGRES_PASSWORD=*укажите ваши данные
       "clues_count": 5
     }
   },
-  {
+{
     "id": 15292,
     "answer": "the Statue of Liberty",
     "question": "France's replica of this statue stands on an island in the Seine & faces west",
@@ -74,4 +74,4 @@ POSTGRES_PASSWORD=*укажите ваши данные
     }
   },
 ]
-'''
+"""
