@@ -27,13 +27,13 @@ POSTGRES_PASSWORD=*укажите ваши данные
 6. Проект будет готов к тесту по адресу: http://localhost:8000/docs#/api/get_and_save_data_in_db_api_get_data_post
 
 Пример запроса:
-'''
+```
 {
     "question_id": 2
 }
-'''
+```
 Пример возвращаемого ответа:
-"""
+```
 [
   {
     "id": 137386,
@@ -72,6 +72,6 @@ POSTGRES_PASSWORD=*укажите ваши данные
       "updated_at": "2022-12-30T18:37:46.809Z",
       "clues_count": 246
     }
-  },
+  }
 ]
-"""
+```
